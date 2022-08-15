@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+
+  <title>Spring Fundamentos - Listagem de Clientes</title>
+</head>
+<body>
+  <nav class="navbar navbar-light bg-light">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">TWClientes</a>
+    </div>
+  </nav>
+
+  <main class="container">
+    <div class="row">
+      <div class="col-sm-12">
+        <h1>Listagem de Clientes</h1>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-sm-12">
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Nome</th>
+              <th scope="col">Data de Nascimento</th>
+              <th scope="col">Profissão</th>
+              <th scope="col">Ações</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr th:each="cliente : ${clientes}">
+              <th scope="row" th:text="${cliente.id}"></th>
+              <td>
+                <a 
+                  th:text="${cliente.nome}" 
+                  th:href="@{/cliente/{id} (id=${cliente.id})}"
+                ></a>
+              </td>
+              <td th:text="${cliente.dataNascimento}"></td>
+              <td th:text="${cliente.profissao}"></td>
+              <td>
+                <a 
+                  th:href="@{/cliente/{id}/editar (id=${cliente.id})}"
+                  class="btn btn-warning"
+                >
+                  Editar
+                </a>
+                <a 
+                  th:href="@{/cliente/{id}/excluir (id=${cliente.id})}"
+                  class="btn btn-danger"
+                  onclick="return confirm('Tem certeza que deseja excluir o cliente?');"
+                >
+                  Excluir
+                </a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-sm-12">
+        <a th:href="@{/cliente/cadastrar}" class="btn btn-primary">Cadastrar novo Cliente</a>
+      </div>
+    </div>
+  </main>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
+</body>
+</html>
